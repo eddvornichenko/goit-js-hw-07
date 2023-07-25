@@ -32,10 +32,15 @@ function handleGalleryClick(event) {
 
   const instance = basicLightbox.create(`
     <img src="${largeImageUrl}" width="800" height="600">
-  `);
+  `, {
+    onShow: () => {
+      window.addEventListener("keydown", handleKeyPress);
+    },
+    onClose: () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    }
+  });
   instance.show();
-
-  window.addEventListener("keydown", handleKeyPress);
 
   function handleKeyPress(event) {
     if (event.code === "Escape") {
